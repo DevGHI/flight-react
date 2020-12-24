@@ -32,14 +32,20 @@ function Main(props) {
   const selectHome = useCallback(() => {
     smoothScrollTop();
     document.title =
-      "WaVer - Free template for building an SaaS or admin application";
+      "Fligth Ticket";
     setSelectedTab("Home");
   }, [setSelectedTab]);
 
   const selectBlog = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Blog";
+    document.title = " Blog";
     setSelectedTab("Blog");
+  }, [setSelectedTab]);
+
+  const selectOrder = useCallback(() => {
+    smoothScrollTop();
+    document.title = "Ticket Order";
+    setSelectedTab("Order");
   }, [setSelectedTab]);
 
   const openLoginDialog = useCallback(() => {
@@ -131,6 +137,8 @@ function Main(props) {
         blogPosts={blogPosts}
         selectHome={selectHome}
         selectBlog={selectBlog}
+        selectOrder={selectOrder}
+        openLoginDialog={openLoginDialog}
       />
       <Footer />
     </div>

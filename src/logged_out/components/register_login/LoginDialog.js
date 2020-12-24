@@ -53,21 +53,39 @@ function LoginDialog(props) {
   const login = useCallback(() => {
     setIsLoading(true);
     setStatus(null);
-    if (loginEmail.current.value !== "test@web.com") {
-      setTimeout(() => {
-        setStatus("invalidEmail");
-        setIsLoading(false);
-      }, 1500);
-    } else if (loginPassword.current.value !== "HaRzwc") {
-      setTimeout(() => {
-        setStatus("invalidPassword");
-        setIsLoading(false);
-      }, 1500);
-    } else {
-      setTimeout(() => {
-        history.push("/c/dashboard");
-      }, 150);
-    }
+    fetch('http://127.0.0.1:8000/api/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'accept':'application/json'
+      },
+      body: JSON.stringify({ email: loginEmail.current.value,password:loginPassword.current.value })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if(res.status=="success"){
+          alert("login success");
+          localStorage.setItem('isLogin', true);
+          localStorage.setItem('usertoken', res.data.token);
+          window.location.reload();
+        }
+      });
+
+    // if (loginEmail.current.value !== "test@web.com") {
+    //   setTimeout(() => {
+    //     setStatus("invalidEmail");
+    //     setIsLoading(false);
+    //   }, 1500);
+    // } else if (loginPassword.current.value !== "HaRzwc") {
+    //   setTimeout(() => {
+    //     setStatus("invalidPassword");
+    //     setIsLoading(false);
+    //   }, 1500);
+    // } else {
+    //   setTimeout(() => {
+    //     history.push("/c/dashboard");
+    //   }, 150);
+    // }
   }, [setIsLoading, loginEmail, loginPassword, history, setStatus]);
 
   return (
@@ -134,12 +152,12 @@ function LoginDialog(props) {
               onVisibilityChange={setIsPasswordVisible}
               isVisible={isPasswordVisible}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               className={classes.formControlLabel}
               control={<Checkbox color="primary" />}
               label={<Typography variant="body1">Remember me</Typography>}
-            />
-            {status === "verificationEmailSend" ? (
+            /> */}
+            {/* {status === "verificationEmailSend" ? (
               <HighlightedInformation>
                 We have send instructions on how to reset your password to your
                 email address
@@ -150,7 +168,7 @@ function LoginDialog(props) {
                 <br />
                 Password is: <b>HaRzwc</b>
               </HighlightedInformation>
-            )}
+            )} */}
           </Fragment>
         }
         actions={
@@ -166,7 +184,7 @@ function LoginDialog(props) {
               Login
               {isLoading && <ButtonCircularProgress />}
             </Button>
-            <Typography
+            {/* <Typography
               align="center"
               className={classNames(
                 classes.forgotPassword,
@@ -187,7 +205,7 @@ function LoginDialog(props) {
               }}
             >
               Forgot Password?
-            </Typography>
+            </Typography> */}
           </Fragment>
         }
       />

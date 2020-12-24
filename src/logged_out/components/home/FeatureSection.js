@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography, isWidthUp, withWidth } from "@material-ui/core";
 import CodeIcon from "@material-ui/icons/Code";
@@ -12,6 +13,7 @@ import MeassageIcon from "@material-ui/icons/Message";
 import CancelIcon from "@material-ui/icons/Cancel";
 import calculateSpacing from "./calculateSpacing";
 import FeatureCard from "./FeatureCard";
+
 
 const iconSize = 30;
 
@@ -101,18 +103,43 @@ const features = [
 
 function FeatureSection(props) {
   const { width } = props;
+
+  const [ flights, setFlights ] = useState([]);
+  useEffect(() => {
+      fetch('http://127.0.0.1:8000/api/tickets')
+      .then(res => res.json())
+      .then(json => {
+          setFlights(json.data);
+      });
+  }, []);
+
+
+
   return (
     <div style={{ backgroundColor: "#FFFFFF" }}>
       <div className="container-fluid lg-p-top">
         <Typography variant="h3" align="center" className="lg-mg-bottom">
-          Features
+          Flights
         </Typography>
+        
         <div className="container-fluid">
           <Grid container spacing={calculateSpacing(width)}>
-            {features.map(element => (
+            {/* <Grid
+              item
+              xs={12}
+              md={12}>
+               <div style={{ width: '100%' }}>
+                  <Box display="flex" p={1} bgcolor="background.paper">
+                    {"I'm a flexbox container!"}
+                  </Box>
+                </div>
+            </Grid> */}
+           
+            {flights.map(element => (
               <Grid
+                id={element.id}
                 item
-                xs={6}
+                xs={12}
                 md={4}
                 data-aos="zoom-in-up"
                 data-aos-delay={
@@ -121,13 +148,20 @@ function FeatureSection(props) {
                 key={element.headline}
               >
                 <FeatureCard
-                  Icon={element.icon}
-                  color={element.color}
-                  headline={element.headline}
-                  text={element.text}
+                id={element.id}
+                  photo="https://picsum.photos/200"
+                  start_city="Myitkyina"
+                  end_city="Yanogn"
+                  airline="Airline"
+                  destination_time="1:00"
+                  arrival_time="5:00"
+                  price="1000"
                 />
               </Grid>
             ))}
+
+              
+
           </Grid>
         </div>
       </div>

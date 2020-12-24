@@ -5,9 +5,10 @@ import PropsRoute from "../../shared/components/PropsRoute";
 import Home from "./home/Home";
 import Blog from "./blog/Blog";
 import BlogPost from "./blog/BlogPost";
+import OrderForm from "./Order/OrderForm";
 
 function Routing(props) {
-  const { blogPosts, selectBlog, selectHome } = props;
+  const { blogPosts, selectBlog, selectHome,selectOrder,openLoginDialog } = props;
   return (
     <Switch>
       {blogPosts.map((post) => (
@@ -31,6 +32,16 @@ function Routing(props) {
         selectBlog={selectBlog}
         blogPosts={blogPosts}
       />
+
+      <PropsRoute
+        exact
+        path="/order/:id/:price"
+        component={OrderForm}
+        selectOrder={selectOrder}
+        openLoginDialog={openLoginDialog}
+      />
+
+
       <PropsRoute path="/" component={Home} selectHome={selectHome} />
     </Switch>
   );

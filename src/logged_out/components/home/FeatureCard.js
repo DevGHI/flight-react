@@ -1,72 +1,101 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Typography, withStyles } from "@material-ui/core";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const styles = theme => ({
-  iconWrapper: {
-    borderRadius: theme.shape.borderRadius,
-    textAlign: "center",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(1) * 1.5
-  }
-});
+import Button from '@material-ui/core/Button';
 
-function shadeColor(hex, percent) {
-  const f = parseInt(hex.slice(1), 16);
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-  const t = percent < 0 ? 0 : 255;
+import { Link } from "react-router-dom";
 
-  const p = percent < 0 ? percent * -1 : percent;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
 
-  const R = f >> 16;
+export default function RecipeReviewCard(props) {
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
 
-  const G = (f >> 8) & 0x00ff;
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
-  const B = f & 0x0000ff;
-  return `#${(
-    0x1000000 +
-    (Math.round((t - R) * p) + R) * 0x10000 +
-    (Math.round((t - G) * p) + G) * 0x100 +
-    (Math.round((t - B) * p) + B)
-  )
-    .toString(16)
-    .slice(1)}`;
-}
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
 
-function FeatureCard(props) {
-  const { classes, Icon, color, headline, text } = props;
   return (
-    <Fragment>
-      <div
-        // We will set color and fill here, due to some prios complications
-        className={classes.iconWrapper}
-        style={{
-          color: color,
-          backgroundColor: shadeColor(color, 0.5),
-          fill: color
-        }}
-      >
-        {Icon}
-      </div>
-      <Typography variant="h5" paragraph>
-        {headline}
-      </Typography>
-      <Typography variant="body1" color="textSecondary">
-        {text}
-      </Typography>
-    </Fragment>
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={
+          <span className={classes.avatar} style={{padding:5}}>
+            {props.price}
+          </span>
+        }
+        title={props.start_city +" to "+ props.end_city}
+      />
+      <CardMedia
+        className={classes.media}
+        image={props.photo}
+      />
+      <CardContent>
+          <div className={classes.demo}>
+            <List dense={dense}>
+                <ListItem><ListItemText primary={"Price: "+props.price}/></ListItem>
+                <ListItem><ListItemText primary={"From: "+props.start_city}/></ListItem>
+                <ListItem><ListItemText primary={"To: "+props.end_city}/></ListItem>
+                <ListItem><ListItemText primary={"Airline: "+props.airline}/></ListItem>
+                <ListItem><ListItemText primary={"Destination Time: "+props.destination_time}/></ListItem>
+                <ListItem><ListItemText primary={"Arrival Time: "+props.arrival_time}/></ListItem>
+            </List>
+          </div>
+      </CardContent>
+      <CardActions disableSpacing>
+        <Link
+              to={'order/'+props.id+'/'+props.price}
+              style={{textDecoration: "none !important"}}
+            >
+           <Button variant="outlined" color="primary">
+            Order
+          </Button>
+        </Link>
+       
+      </CardActions>
+      
+    </Card>
   );
 }
-
-FeatureCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  Icon: PropTypes.element.isRequired,
-  color: PropTypes.string.isRequired,
-  headline: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-};
-
-export default withStyles(styles, { withTheme: true })(FeatureCard);
