@@ -59,18 +59,36 @@ function NavBar(props) {
       link: "/blog",
       name: "Blog",
       icon: <BookIcon className="text-white" />
-    },
-    {
-      name: "Register",
-      onClick: openRegisterDialog,
-      icon: <HowToRegIcon className="text-white" />
-    },
-    {
-      name: "Login",
-      onClick: openLoginDialog,
-      icon: <LockOpenIcon className="text-white" />
     }
   ];
+  const isLogin = localStorage.getItem('isLogin');
+  if(isLogin==null){
+    menuItems.push(
+      {
+        name: "Register",
+        onClick: openRegisterDialog,
+        icon: <HowToRegIcon className="text-white" />
+      },
+      {
+        name: "Login",
+        onClick: openLoginDialog,
+        icon: <LockOpenIcon className="text-white" />
+      }
+    )
+  }else{
+    menuItems.push(
+      {
+        name: "Logout",
+        onClick: ()=>{
+          localStorage.removeItem('isLogin');
+          localStorage.removeItem('usertoken');
+          window.location.reload();
+        },
+        icon: <HowToRegIcon className="text-white" />
+      }
+    )
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>

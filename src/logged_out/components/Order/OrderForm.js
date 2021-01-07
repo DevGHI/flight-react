@@ -179,42 +179,52 @@ export default function OrderForm(props) {
 
 
   function submit(){
+    const isLogin = localStorage.getItem('isLogin');
+    if(isLogin==null){
+      openLoginDialog();
+      // openLoginDialog;
+      // openLoginDialog();
+    }else{
 
-    let ticket_id=ticketid_Ref.current.value;
-    let unit_price=unitprice_Ref.current.value;
-    let total_price=totalprice_Ref.current.value;
-    let qty=qty_Ref.current.value;
-    if(qty<1){
-      alert('Please Fill Qty');
+      let ticket_id=ticketid_Ref.current.value;
+      let unit_price=unitprice_Ref.current.value;
+      let total_price=totalprice_Ref.current.value;
+      let qty=qty_Ref.current.value;
+      if(qty<1){
+        alert('Please Fill Qty');
+      }
+      else{
+        const usertoken = localStorage.getItem('usertoken');
+        //console.log(`data---->>>>${ticket_id}+${unit_price}+${total_price}+${qty}`)
+        fetch('http://127.0.0.1:8000/api/order', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'accept':'application/json',
+              'authorization':usertoken
+            },
+            body: JSON.stringify({ 
+              ticket_id: ticket_id,
+              unit_price:unit_price,
+              total_price:total_price,
+              qty:qty
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          if(res.status='success'){
+            alert("Order Success");
+          }
+        })
+        .catch(err=>console.error(err));
+
+
+      }
+      
     }
-    else{
-      const usertoken = localStorage.getItem('usertoken');
-      //console.log(`data---->>>>${ticket_id}+${unit_price}+${total_price}+${qty}`)
-      fetch('http://127.0.0.1:8000/api/order', {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            'accept':'application/json',
-            'authorization':usertoken
-          },
-          body: JSON.stringify({ 
-            ticket_id: ticket_id,
-            unit_price:unit_price,
-            total_price:total_price,
-            qty:qty
-          })
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        if(res.status='success'){
-          alert("Order Success");
-        }
-      })
-      .catch(err=>console.error(err));
 
-
-    }
+  
     
   }
 }

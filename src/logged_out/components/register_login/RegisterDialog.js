@@ -37,20 +37,57 @@ function RegisterDialog(props) {
   const [hasTermsOfServiceError, setHasTermsOfServiceError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const registerTermsCheckbox = useRef();
+
+  const registerName = useRef();
+  const registerEmail = useRef();
   const registerPassword = useRef();
   const registerPasswordRepeat = useRef();
 
   const register = useCallback(() => {
-    if (!registerTermsCheckbox.current.checked) {
-      setHasTermsOfServiceError(true);
-      return;
-    }
     if (
       registerPassword.current.value !== registerPasswordRepeat.current.value
     ) {
       setStatus("passwordsDontMatch");
       return;
     }
+    else{
+      let name=registerName.current.value;
+      let email=registerEmail.current.value;
+      let password=registerPassword.current.value;
+      let confirm_password=registerPasswordRepeat.current.value;
+      let arr={
+        name:name,
+        email:email,
+        password:password,
+        confirm_password:confirm_password
+      };
+      console.log('data',arr);
+
+
+      fetch('http://127.0.0.1:8000/api/register', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'accept':'application/json'
+        },
+        body: JSON.stringify(arr)
+        })
+        .then(res => res.json())
+        .then(res => {
+          console.log('res',res);
+          if(res.status=="success"){
+            alert(res.message);
+            window.location.reload();
+          }
+        });
+
+
+
+    }
+
+
+
+
     setStatus(null);
     setIsLoading(true);
     setTimeout(() => {
@@ -84,6 +121,18 @@ function RegisterDialog(props) {
             margin="normal"
             required
             fullWidth
+            label="Name"
+            autoFocus
+            autoComplete="off"
+            type="text"
+            inputRef={registerName}
+          />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             error={status === "invalidEmail"}
             label="Email Address"
             autoFocus
@@ -95,6 +144,7 @@ function RegisterDialog(props) {
               }
             }}
             FormHelperTextProps={{ error: true }}
+            inputRef={registerEmail}
           />
           <VisibilityPasswordTextField
             variant="outlined"
@@ -127,6 +177,7 @@ function RegisterDialog(props) {
             FormHelperTextProps={{ error: true }}
             isVisible={isPasswordVisible}
             onVisibilityChange={setIsPasswordVisible}
+            inputRef={registerPassword}
           />
           <VisibilityPasswordTextField
             variant="outlined"
@@ -158,8 +209,9 @@ function RegisterDialog(props) {
             FormHelperTextProps={{ error: true }}
             isVisible={isPasswordVisible}
             onVisibilityChange={setIsPasswordVisible}
+            inputRef={registerPasswordRepeat}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             style={{ marginRight: 0 }}
             control={
               <Checkbox
@@ -193,7 +245,7 @@ function RegisterDialog(props) {
                 </span>
               </Typography>
             }
-          />
+          /> */}
           {hasTermsOfServiceError && (
             <FormHelperText
               error
@@ -206,16 +258,7 @@ function RegisterDialog(props) {
               service.
             </FormHelperText>
           )}
-          {status === "accountCreated" ? (
-            <HighlightedInformation>
-              We have created your account. Please click on the link in the
-              email we have sent to you before logging in.
-            </HighlightedInformation>
-          ) : (
-            <HighlightedInformation>
-              Registration is disabled until we go live.
-            </HighlightedInformation>
-          )}
+         
         </Fragment>
       }
       actions={

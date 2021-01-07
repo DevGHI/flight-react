@@ -150,12 +150,12 @@ function FeatureSection(props) {
                 <FeatureCard
                 id={element.id}
                   photo="https://picsum.photos/200"
-                  start_city="Myitkyina"
-                  end_city="Yanogn"
-                  airline="Airline"
-                  destination_time="1:00"
-                  arrival_time="5:00"
-                  price="1000"
+                  start_city={element.start_city}
+                  end_city={element.end_city}
+                  airline={element.airline}
+                  destination_time={element.destination_time}
+                  arrival_time={element.arrival_time}
+                  price={element.price}
                 />
               </Grid>
             ))}
