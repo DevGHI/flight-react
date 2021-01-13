@@ -75,7 +75,7 @@ export default function RecipeReviewCard(props) {
       <CardContent>
           <div className={classes.demo}>
             <List dense={dense}>
-                <ListItem><ListItemText primary={"Price: "+props.price}/></ListItem>
+                <ListItem><ListItemText primary={"Price: "+props.price +" MMK"}/></ListItem>
                 <ListItem><ListItemText primary={"From: "+props.start_city}/></ListItem>
                 <ListItem><ListItemText primary={"To: "+props.end_city}/></ListItem>
                 <ListItem><ListItemText primary={"Airline: "+props.airline}/></ListItem>

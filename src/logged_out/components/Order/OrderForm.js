@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import SERVER_URL from "../../../shared/helper";
+import { useHistory } from "react-router-dom";
 
 import {
   useParams,
@@ -61,7 +63,7 @@ export default function OrderForm(props) {
   const unitprice_Ref=useRef(null);
   const totalprice_Ref=useRef(null);
   const qty_Ref=useRef(null);
-  
+  let history = useHistory();
   let [ qty, setQty ] = React.useState(1);
 
   var unit_price=price;
@@ -199,7 +201,7 @@ export default function OrderForm(props) {
       else{
         const usertoken = localStorage.getItem('usertoken');
         //console.log(`data---->>>>${ticket_id}+${unit_price}+${total_price}+${qty}`)
-        fetch('http://localhost/flight-ticket/public/api/order', {
+        fetch(SERVER_URL+'api/order', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
@@ -218,6 +220,8 @@ export default function OrderForm(props) {
           console.log(res);
           if(res.status='success'){
             alert("Order Success");
+            history.push('/')
+            
           }
         })
         .catch(err=>console.error(err));

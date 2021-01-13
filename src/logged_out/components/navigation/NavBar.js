@@ -52,14 +52,14 @@ function NavBar(props) {
   const menuItems = [
     {
       link: "/",
-      name: "Home",
+      name: "Flights",
       icon: <HomeIcon className="text-white" />
     },
-    {
-      link: "/blog",
-      name: "Blog",
-      icon: <BookIcon className="text-white" />
-    }
+    // {
+    //   link: "/blog",
+    //   name: "Blog",
+    //   icon: <BookIcon className="text-white" />
+    // }
   ];
   const isLogin = localStorage.getItem('isLogin');
   if(isLogin==null){
@@ -94,21 +94,14 @@ function NavBar(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div>
-            <Typography
-              variant="h4"
-              className={classes.brandText}
-              display="inline"
-              color="primary"
-            >
-              Wa
-            </Typography>
+           
             <Typography
               variant="h4"
               className={classes.brandText}
               display="inline"
               color="secondary"
             >
-              Ver
+              SatisFlyer
             </Typography>
           </div>
           <div>

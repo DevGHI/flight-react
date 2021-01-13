@@ -226,8 +226,8 @@ function Footer(props) {
               About the Company
             </Typography>
             <Typography style={{ color: "#8f9296" }} paragraph>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-              euismod convallis velit, eu auctor lacus vehicula sit amet.
+            We will continue to improve the service over time and we welcome your comments and suggestions. If you like the service, tell your friends. If not, tell us at customercare@Satisflyer.com.
+
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (

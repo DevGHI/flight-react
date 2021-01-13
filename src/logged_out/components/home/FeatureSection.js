@@ -13,17 +13,16 @@ import MeassageIcon from "@material-ui/icons/Message";
 import CancelIcon from "@material-ui/icons/Cancel";
 import calculateSpacing from "./calculateSpacing";
 import FeatureCard from "./FeatureCard";
-
+import SERVER_URL from "../../../shared/helper";
 
 const iconSize = 30;
 
 
 function FeatureSection(props) {
   const { width } = props;
-
   const [ flights, setFlights ] = useState([]);
   useEffect(() => {
-      fetch('http://localhost/flight-ticket/public/api/tickets')
+      fetch(SERVER_URL+"api/tickets")
       .then(res => res.json())
       .then(json => {
           setFlights(json.data);
@@ -36,7 +35,7 @@ function FeatureSection(props) {
     <div style={{ backgroundColor: "#FFFFFF" }}>
       <div className="container-fluid lg-p-top">
         <Typography variant="h3" align="center" className="lg-mg-bottom">
-          Flights
+        Flight List
         </Typography>
         
         <div className="container-fluid">

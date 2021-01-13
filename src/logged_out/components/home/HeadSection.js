@@ -123,8 +123,8 @@ function HeadSection(props) {
                         <Typography
                           variant={isWidthUp("lg", width) ? "h3" : "h4"}
                         >
-                          Free Template for building an SaaS app using
-                          Material-UI
+                         SatisFlyer Will Change the Way You Fly
+
                         </Typography>
                       </Box>
                       <div>
@@ -133,11 +133,10 @@ function HeadSection(props) {
                             variant={isWidthUp("lg", width) ? "h6" : "body1"}
                             color="textSecondary"
                           >
-                            Lorem ipsum dolor sit amet, consetetur sadipscing
-                            elitr, sed diam nonumy eirmod tempor invidunt
+                           We give you the best information so you can buy your tickets anywhere, online or off. With our new Seat Alerts® feature, you can be notified when the exact seat you want becomes available!
                           </Typography>
                         </Box>
-                        <Button
+                        {/* <Button
                           variant="contained"
                           color="secondary"
                           fullWidth
@@ -146,14 +145,14 @@ function HeadSection(props) {
                           href="https://github.com/dunky11/react-saas-template"
                         >
                           Download from GitHub
-                        </Button>
+                        </Button> */}
                       </div>
                     </Box>
                   </Grid>
                   <Hidden smDown>
                     <Grid item md={6}>
                       <ZoomImage
-                        src={`${process.env.PUBLIC_URL}/images/logged_out/headerImage.jpg`}
+                        src="https://ei.marketwatch.com/Multimedia/2019/02/25/Photos/ZQ/MW-HE536_airpla_20190225131547_ZQ.jpg?uuid=5fa81d1a-3929-11e9-9462-ac162d7bc1f7"
                         className={classes.image}
                         alt="header example"
                       />

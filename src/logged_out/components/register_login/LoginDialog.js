@@ -14,6 +14,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+import SERVER_URL from "../../../shared/helper";
 
 const styles = (theme) => ({
   forgotPassword: {
@@ -53,7 +54,7 @@ function LoginDialog(props) {
   const login = useCallback(() => {
     setIsLoading(true);
     setStatus(null);
-    fetch('http://localhost/flight-ticket/public/api/login', {
+    fetch(SERVER_URL+'api/login', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

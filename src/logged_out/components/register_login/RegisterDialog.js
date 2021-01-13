@@ -13,7 +13,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
-
+import SERVER_URL from "../../../shared/helper";
 const styles = (theme) => ({
   link: {
     transition: theme.transitions.create(["background-color"], {
@@ -64,7 +64,7 @@ function RegisterDialog(props) {
       console.log('data',arr);
 
 
-      fetch('http://localhost/flight-ticket/public/api/register', {
+      fetch(SERVER_URL+'api/register', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
