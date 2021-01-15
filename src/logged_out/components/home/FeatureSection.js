@@ -65,7 +65,7 @@ function FeatureSection(props) {
               >
                 <FeatureCard
                 id={element.id}
-                  photo="https://picsum.photos/200"
+                  photo={element.airline.logo}
                   start_city={element.start_city}
                   end_city={element.end_city}
                   airline={element.airline.name}
