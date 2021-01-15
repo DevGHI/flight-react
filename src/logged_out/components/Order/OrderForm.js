@@ -157,7 +157,8 @@ export default function OrderForm(props) {
             autoComplete="qty"
             onChange={setTotalPrice}
           />
-          <h3>{ticket_left} tickets left</h3>
+          <h3>{ticket_left} tickets left.</h3>
+          <h3>Cancellation within one hour.</h3>
          
           <Button
             type="button"
@@ -169,6 +170,7 @@ export default function OrderForm(props) {
           >
            Order
           </Button>
+
           
         </form>
       </div>
