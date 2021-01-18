@@ -81,12 +81,13 @@ export default function RecipeReviewCard(props) {
                 <ListItem><ListItemText primary={"Airline: "+props.airline}/></ListItem>
                 <ListItem><ListItemText primary={"Destination Time: "+props.destination_time}/></ListItem>
                 <ListItem><ListItemText primary={"Arrival Time: "+props.arrival_time}/></ListItem>
+                <ListItem><ListItemText primary={props.ticket_left+" Ticket Left "}/></ListItem>
             </List>
           </div>
       </CardContent>
       <CardActions disableSpacing>
         <Link
-              to={'order/'+props.id+'/'+props.price}
+              to={'order/'+props.id+'/'+props.price+'/'+props.ticket_left}
               style={{textDecoration: "none !important"}}
             >
            <Button variant="outlined" color="primary">

@@ -53,7 +53,7 @@ function LoginDialog(props) {
   const login = useCallback(() => {
     setIsLoading(true);
     setStatus(null);
-    fetch('http://127.0.0.1:8000/api/login', {
+    fetch('http://localhost/flight-ticket/public/api/login', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

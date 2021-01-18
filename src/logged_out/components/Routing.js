@@ -35,7 +35,7 @@ function Routing(props) {
 
       <PropsRoute
         exact
-        path="/order/:id/:price"
+        path="/order/:id/:price/:ticket_left"
         component={OrderForm}
         selectOrder={selectOrder}
         openLoginDialog={openLoginDialog}

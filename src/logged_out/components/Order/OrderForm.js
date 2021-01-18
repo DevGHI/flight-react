@@ -55,7 +55,7 @@ export default function OrderForm(props) {
   const { openLoginDialog} = props;
 
   const classes = useStyles();
-  const { id,price } = useParams();
+  const { id,price,ticket_left } = useParams();
 
   const ticketid_Ref=useRef(null);
   const unitprice_Ref=useRef(null);
@@ -138,6 +138,8 @@ export default function OrderForm(props) {
             autoComplete="total_price"
           />
 
+
+
         <TextField
             inputRef={qty_Ref}
             type="number"
@@ -153,6 +155,7 @@ export default function OrderForm(props) {
             autoComplete="qty"
             onChange={setTotalPrice}
           />
+          <h3>{ticket_left} tickets left</h3>
          
           <Button
             type="button"
@@ -196,7 +199,7 @@ export default function OrderForm(props) {
       else{
         const usertoken = localStorage.getItem('usertoken');
         //console.log(`data---->>>>${ticket_id}+${unit_price}+${total_price}+${qty}`)
-        fetch('http://127.0.0.1:8000/api/order', {
+        fetch('http://localhost/flight-ticket/public/api/order', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',

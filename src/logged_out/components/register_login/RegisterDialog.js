@@ -64,7 +64,7 @@ function RegisterDialog(props) {
       console.log('data',arr);
 
 
-      fetch('http://127.0.0.1:8000/api/register', {
+      fetch('http://localhost/flight-ticket/public/api/register', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
